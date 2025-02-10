@@ -1,12 +1,13 @@
 {
   "include": [
     "src/*",
-    "setup/*"
+    "dev/*"
   ],
   "compilerOptions": {
     "target": "es2021",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "module": "nodenext",
+    "experimentalDecorators": true,
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "newLine": "lf",
