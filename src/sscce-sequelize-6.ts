@@ -96,15 +96,16 @@ export async function run() {
   sequelize.afterBulkSync(() => spy());
   await sequelize.sync({ force: true });
   expect(spy).to.have.been.called;
-  await Foo.upsert({ id: 1, name: 'bar'});
-  await Foo.upsert({ id: 2, name: 'baz'});
+  console.log("Start 1")
+  await Foo.findCreateFind({ defaults: { id: 1, name: 'bar'}, where: { username: 'bar' }});
+  await Foo.findCreateFind({ defaults: { id: 2, name: 'baz'}, where: { username: 'baz' },});
   
-  console.log("Start")
+  console.log("Start 2")
   
   console.log(await sequelize.query('SELECT * FROM "Foos"', {
     type: sequelize.QueryTypes.SELECT,
     model: Foo,
   }));
   
-  console.log("End")
+  console.log("Start 3")
 }
