@@ -97,11 +97,19 @@ export async function run() {
   await sequelize.sync({ force: true });
   expect(spy).to.have.been.called;
   console.log("Start 1")
-  await Foo.findCreateFind({ defaults: { id: 1, name: 'bar'}, where: { username: 'bar' }});
-  await Foo.findCreateFind({ defaults: { id: 2, name: 'baz'}, where: { username: 'baz' },});
+  await Foo.findCreateFind({ defaults: { id: 1, name: 'bar'}, where: { name: 'bar' }});
+
+  console.log("Start 1.1")
+  await Foo.findCreateFind({ defaults: { id: 1, name: 'bar'}, where: { name: 'bar' }});
+  
+  console.log("Start 1.2")
+  await Foo.findOrCreate({ defaults: { id: 2, name: 'baz'}, where: { name: 'baz' }});
+
+  console.log("Start 1.3")
+  await Foo.findOrCreate({ defaults: { id: 2, name: 'baz'}, where: { name: 'baz' }});
   
   console.log("Start 2")
-  
+
   console.log(await sequelize.query('SELECT * FROM "Foos"', {
     type: sequelize.QueryTypes.SELECT,
     model: Foo,
